@@ -2,6 +2,7 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.7/marked.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="vue.js"></script>
     <title>Markdown Editor</title>
@@ -11,6 +12,14 @@
     <input placeholder="Name" v-model="mdName">
     <button v-on:click="createMd">Add</button>
 </div>
+
+<div id="mdList">
+    <div v-for="md in mds" v-on:click="mdSelect(md)">{{md._id}}</div>
+</div>
+
+<textarea id="editor">{{content}}</textarea>
+
+<div id="viewer" v-html="content"></div>
 
 <script src="script.js"></script>
 </body>
