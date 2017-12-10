@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 mongoClient.connect(db.url, (err, client) => {
     if (err) return console.log(err);
 
-    require('./app/routes')(app, client.db('md'));
+    require('./server/index')(app, client.db('md'));
     app.listen(port, () => {
         console.log('Started on port ' + port)
     });
