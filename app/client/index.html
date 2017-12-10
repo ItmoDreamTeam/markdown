@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="vue.js"></script>
+    <title>Markdown Editor</title>
+</head>
+<body>
+<div id="add">
+    <input placeholder="Name" v-model="mdName">
+    <button v-on:click="createMd">Add</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
