@@ -5,19 +5,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.7/marked.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="vue.js"></script>
+    <link href="style.css" rel="stylesheet">
     <title>Markdown Editor</title>
 </head>
 <body>
-<div id="add">
-    <input placeholder="Name" v-model="mdName">
-    <button v-on:click="createMd">Add</button>
+
+<div id="control">
+    <div id="add" class="list-item">
+        <input placeholder="Name" v-model="mdName">
+        <button v-on:click="createMd">Add</button>
+    </div>
+    <div id="mdList">
+        <div class="list-item" v-for="md in mds" v-on:click="mdSelect(md)">
+            <div v-if="md._id === selected" style="background-color: aqua">{{md._id}}</div>
+            <div v-else>{{md._id}}</div>
+        </div>
+    </div>
 </div>
 
-<div id="mdList">
-    <div v-for="md in mds" v-on:click="mdSelect(md)">{{md._id}}</div>
+<div id="editor">
+    <textarea id="area">{{content}}</textarea>
+    <div class="panel">
+        <button v-on:click="save">Save</button>
+        <button v-on:click="mdDelete">Delete</button>
+    </div>
 </div>
-
-<textarea id="editor">{{content}}</textarea>
 
 <div id="viewer" v-html="content"></div>
 

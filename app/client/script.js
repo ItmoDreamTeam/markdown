@@ -5,6 +5,7 @@ const addMd = new Vue({
     },
     methods: {
         createMd: function () {
+            if (this.mdName === '') return;
             $.post('/api/md', {
                 "name": this.mdName
             }, function () {
@@ -19,12 +20,13 @@ const addMd = new Vue({
 const mdList = new Vue({
     el: "#mdList",
     data: {
+        selected: '',
         mds: []
     },
     methods: {
         mdSelect: function (md) {
+            this.selected = md._id;
             editor.$data.content = md.content;
-            viewer.update();
         }
     }
 });
@@ -33,6 +35,33 @@ const editor = new Vue({
     el: "#editor",
     data: {
         content: ''
+    },
+    methods: {
+        save: function () {
+            if (mdList.selected === '') return;
+            $.ajax({
+                url: '/api/md/' + mdList.selected,
+                method: 'PUT',
+                data: {
+                    "content": this.content
+                }
+            }).done(function () {
+                //
+            }).fail(function (error) {
+                alert(error.responseText);
+            });
+        },
+        mdDelete: function () {
+            if (mdList.selected === '') return;
+            $.ajax({
+                url: '/api/md/' + mdList.selected,
+                method: 'DELETE'
+            }).done(function () {
+                refresh();
+            }).fail(function (error) {
+                alert(error.responseText);
+            });
+        }
     }
 });
 
@@ -49,6 +78,8 @@ const viewer = new Vue({
 });
 
 function refresh() {
+    addMd.$data.mdName = '';
+    mdList.$data.selected = '';
     $.get('/api/md', function (response, status) {
         mdList.$data.mds = response;
     });

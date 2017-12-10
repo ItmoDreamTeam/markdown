@@ -6,6 +6,9 @@ module.exports = function (app, db) {
     app.get('/', function (request, response) {
         response.sendFile(__dirname + '/client/index.html');
     });
+    app.get('/style.css', function (request, response) {
+        response.sendFile(__dirname + '/client/style.css');
+    });
     app.get('/script.js', function (request, response) {
         response.sendFile(__dirname + '/client/script.js');
     });
