@@ -5,6 +5,7 @@ const addMd = new Vue({
     },
     methods: {
         createMd: function () {
+            this.mdName = this.mdName.trim();
             if (this.mdName === '') return;
             $.post('/api/md', {
                 "name": this.mdName
@@ -26,7 +27,8 @@ const mdList = new Vue({
     methods: {
         mdSelect: function (md) {
             this.selected = md._id;
-            editor.$data.content = md.content;
+            editor.content = md.content;
+            viewer.update();
         }
     }
 });
@@ -46,7 +48,7 @@ const editor = new Vue({
                     "content": this.content
                 }
             }).done(function () {
-                //
+                refresh();
             }).fail(function (error) {
                 alert(error.responseText);
             });
@@ -57,6 +59,8 @@ const editor = new Vue({
                 url: '/api/md/' + mdList.selected,
                 method: 'DELETE'
             }).done(function () {
+                mdList.selected = '';
+                editor.content = '';
                 refresh();
             }).fail(function (error) {
                 alert(error.responseText);
@@ -72,16 +76,15 @@ const viewer = new Vue({
     },
     methods: {
         update: function () {
-            this.content = marked(editor.$data.content);
+            this.content = marked(editor.content);
         }
     }
 });
 
 function refresh() {
-    addMd.$data.mdName = '';
-    mdList.$data.selected = '';
+    addMd.mdName = '';
     $.get('/api/md', function (response, status) {
-        mdList.$data.mds = response;
+        mdList.mds = response;
     });
 }
 

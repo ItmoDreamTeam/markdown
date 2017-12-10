@@ -34,6 +34,7 @@ body {
 #area {
     min-width: 400px;
     min-height: 500px;
+    padding: 5px;
 }
 
 #viewer {
@@ -41,4 +42,6 @@ body {
     border: solid green 1px;
     min-width: 400px;
     min-height: 504px;
+    text-align: left;
+    padding: 5px;
 }
