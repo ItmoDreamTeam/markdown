@@ -8,10 +8,10 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoClient.connect(db.url, (err, database) => {
+mongoClient.connect(db.url, (err, client) => {
     if (err) return console.log(err);
 
-    require('./app/routes')(app, database);
+    require('./app/routes')(app, client.db('md'));
     app.listen(port, () => {
         console.log('Started on port ' + port)
     });
