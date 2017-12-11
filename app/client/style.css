@@ -1,0 +1,47 @@
+body {
+    text-align: center;
+}
+
+#control {
+    vertical-align: top;
+    display: inline-block;
+    width: 250px;
+    margin: 0 20px 20px 20px;
+}
+
+#center {
+    display: inline-block;
+    margin: 10px;
+}
+
+#add {
+    border: 0;
+}
+
+.list-item {
+    border: solid darkslateblue 1px;
+    margin: 5px;
+    padding: 3px;
+    height: 20px;
+}
+
+#editor {
+    vertical-align: top;
+    display: inline-block;
+    margin: 0 20px 20px 20px;
+}
+
+#area {
+    min-width: 400px;
+    min-height: 500px;
+    padding: 5px;
+}
+
+#viewer {
+    display: inline-block;
+    border: solid green 1px;
+    min-width: 400px;
+    min-height: 504px;
+    text-align: left;
+    padding: 5px;
+}
