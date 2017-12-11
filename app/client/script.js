@@ -28,7 +28,6 @@ const mdList = new Vue({
         mdSelect: function (md) {
             this.selected = md._id;
             editor.content = md.content;
-            viewer.update();
         }
     }
 });
@@ -71,12 +70,9 @@ const editor = new Vue({
 
 const viewer = new Vue({
     el: "#viewer",
-    data: {
-        content: ''
-    },
-    methods: {
-        update: function () {
-            this.content = marked(editor.content);
+    computed: {
+        getMd: function () {
+            return marked(editor.content);
         }
     }
 });
@@ -84,7 +80,7 @@ const viewer = new Vue({
 function refresh() {
     addMd.mdName = '';
     $.get('/api/md', function (response, status) {
-        mdList.mds = response;
+        mdList.mds = response.reverse();
     });
 }
 
